@@ -6,12 +6,13 @@ Este arquivo reúne as instruções dos agentes para este projeto de pesquisa.
 
 Preencha antes de usar este modelo:
 
+- Objetivo: `<pergunta de pesquisa e documento da proposta>`
 - Dados e origem: `<descreva>`
 - Unidade de separação entre treino e avaliação: `<paciente, usuário, documento, período etc.>`
 - Divisão canônica dos dados: `<arquivo ou procedimento>`
-- Métrica principal: `<nome e definição>`
+- Métrica primária única: `<nome, definição e como é reportada, por exemplo por dataset>`
 - Comandos de teste e lint: `<comandos>`
-- Local dos dados, checkpoints e resultados que devem permanecer fora do Git: `<caminhos>`
+- Local dos dados, checkpoints e resultados que devem permanecer fora do Git: `<caminhos>`. Indique também onde gravam os treinos rodados em outro worktree, por exemplo no checkout principal da `main`.
 
 ## Trabalho com o usuário
 
@@ -35,9 +36,42 @@ Preencha antes de usar este modelo:
 
 ## Worktrees e Git
 
+### Gerenciamento de worktrees
+
 - Use um worktree por tarefa e mantenha o checkout principal da `main` limpo. Consulte `git worktree list` e reutilize o worktree existente ao continuar a mesma tarefa.
-- Antes de remover um worktree, confira mudanças locais, commits não mesclados e processos em execução. Inspecione também os arquivos ignorados pelo Git, incluindo datasets, checkpoints e resultados. Identifique quais precisam ser preservados no checkout principal da `main`, confira colisões nos caminhos de destino e transfira-os sem sobrescrever arquivos existentes. Confirme que os artefatos necessários chegaram ao destino antes de remover o worktree; se houver dúvida ou colisão, peça uma decisão. Artefatos ignorados continuam locais; transferi-los não significa adicioná-los ao Git.
-- Prepare commits por caminho após conferir o status. Faça commit, push ou abra PR somente com autorização; publicar não autoriza merge. Descreva no PR apenas verificações realmente executadas.
+- Depois do merge de um PR, remova o worktree e a branch da tarefa, local e remota, sem deixar para uma limpeza posterior. Se o diretório de trabalho atual estiver nesse worktree, volte antes para o checkout principal da `main`. Faça as verificações de segurança descritas abaixo antes de remover e, se alguma falhar ou houver dúvida, peça uma decisão.
+- Nunca remova o worktree que contém o diretório de trabalho original da sessão do agente, nem a branch dele, mesmo depois do merge. Deixe-o no lugar e informe o usuário de que ele ficou para ser removido fora da sessão.
+
+### Remoção segura de worktrees
+
+- Antes de remover um worktree, confira mudanças locais, commits não mesclados e processos em execução.
+- Inspecione também os arquivos ignorados pelo Git, incluindo datasets, checkpoints e resultados.
+- Identifique quais artefatos precisam ser preservados no checkout principal da `main`, confira colisões nos caminhos de destino e transfira-os sem sobrescrever arquivos existentes.
+- Confirme que os artefatos necessários chegaram ao destino antes de remover o worktree. Se houver dúvida ou colisão, peça uma decisão.
+- Artefatos ignorados continuam locais; transferi-los não significa adicioná-los ao Git.
+
+### Commits atômicos
+
+- Organize as alterações em commits pequenos, atômicos e logicamente independentes. Cada commit deve representar uma única mudança coerente, que possa ser compreendida, revisada e revertida isoladamente.
+- Separe alterações de funcionalidades, correções, refatorações, documentação e formatação em commits distintos sempre que forem logicamente independentes. Não fragmente artificialmente mudanças que dependem umas das outras.
+- Antes de preparar os commits, revise `git status` e `git diff` e agrupe as modificações por responsabilidade.
+- Utilize `git add` com caminhos específicos ou `git add -p` para selecionar apenas as alterações pertencentes a cada commit. Evite `git add .` e `git add -A`.
+- Sempre que possível, mantenha o projeto em um estado funcional após cada commit. Inclua os testes diretamente relacionados à mudança no mesmo commit e execute as verificações pertinentes.
+- Escreva mensagens de commit curtas e descritivas, seguindo o padrão de mensagens adotado pelo repositório.
+- Não inclua alterações não relacionadas, arquivos temporários, datasets, checkpoints, resultados experimentais ou informações sensíveis nos commits.
+- A autorização para realizar commits continua obrigatória. Após obtê-la, siga a divisão planejada em commits atômicos e apresente um resumo das alterações incluídas em cada um.
+
+### Commits e Pull Requests
+
+- Faça commit, push ou abra PR somente com autorização; publicar não autoriza merge.
+- Descreva no PR apenas verificações realmente executadas.
+
+### Revisão com Pullfrog
+
+- O Pullfrog não revisa PRs automaticamente. Quando um PR ou um commit novo for importante, peça a revisão com um comentário no PR que mencione `@pullfrog` e diga o que conferir.
+- Considere importante qualquer mudança de código que altere dados, splits, métricas, busca, treino ou avaliação, além de refatorações grandes. Mudanças exclusivamente de documentação ou triviais dispensam o pedido. `<ajuste a lista às áreas críticas do projeto>`
+- Espere a revisão terminar e leia os achados antes do merge. Resolva os problemas identificados ou apresente-os ao usuário quando uma decisão for necessária.
+- O Pullfrog faz revisão estática: não substitui os testes locais nem as execuções com dados, aos quais ele não tem acesso.
 
 ## Code Review Rules
 
