@@ -8,10 +8,12 @@ Preencha os fatos reais do projeto no `AGENTS.md`, incluindo os comandos de test
 
 ## 2. Proteger a branch principal
 
-Importe [`rulesets/main.json`](../rulesets/main.json) em **Settings → Rules → Rulesets → New ruleset → Import a ruleset**. O alvo `~DEFAULT_BRANCH` acompanha a branch padrão do projeto. Verifique na tela de importação que o ruleset está ativo e que a lista de bypass está vazia. [GitHub Docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
+Importe [`rulesets/main.json`](../rulesets/main.json) em **Settings → Rules → Rulesets → New ruleset → Import a ruleset**. O alvo `~DEFAULT_BRANCH` acompanha a branch padrão do projeto. Verifique na tela de importação que o ruleset está ativo e que a lista de bypass está vazia. O ruleset aceita apenas merge commit; em **Settings → General → Pull Requests**, ative também **Automatically delete head branches** para que a branch remota da tarefa seja removida no merge. [GitHub Docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
 
-## 3. Ativar o Codex Review
+## 3. Ativar o Pullfrog
 
-Siga o [guia de revisão](codex-review.md) para conectar o projeto ao Codex e ativar a revisão automática. Depois de mudanças no diff, peça `@codex review` novamente antes do merge.
+Siga o [guia de revisão](pullfrog-review.md) para instalar o Pullfrog, criar o workflow e configurar a chave do provedor. As revisões são pedidas por menção a `@pullfrog` nos PRs importantes.
+
+Se a conta tiver revisão automática do Copilot ou do Codex ativada, desative-a para o projeto. Este fluxo usa apenas o Pullfrog.
 
 O ruleset importado é uma cópia da receita. Alterações futuras neste repositório não atualizam automaticamente os projetos consumidores.
