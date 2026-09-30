@@ -4,7 +4,7 @@ Receitas para proteger a branch principal e organizar a revisão em projetos pes
 
 ## Conteúdo
 
-- [`rulesets/main.json`](rulesets/main.json): PR obrigatório na branch padrão, zero aprovações exigidas, conversas resolvidas, sem force push e sem exclusão.
+- [`rulesets/main.json`](rulesets/main.json): PR obrigatório na branch padrão, zero aprovações exigidas, conversas resolvidas, merge commit como único método, sem force push e sem exclusão.
 - [`templates/research/`](templates/research/): modelos de `AGENTS.md` e de descrição de PR.
 - [`docs/pullfrog-review.md`](docs/pullfrog-review.md): ativação e rotina de revisão do Pullfrog.
 
