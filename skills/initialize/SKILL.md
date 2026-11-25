@@ -9,7 +9,7 @@ Use esta skill somente quando o usuário a invocar. Ela prepara um projeto com o
 
 ## Fonte e destino
 
-- A fonte das receitas é `flaviosoriano/github-workflows`. Use o clone local `/home/flaviossf/github-workflows` se ele existir e apontar para esse repositório; caso contrário, obtenha uma cópia de leitura do remoto ou peça o caminho ao usuário. Confirme que `templates/research/AGENTS.md`, `templates/research/pull_request_template.md` e `rulesets/main.json` existem antes de usá-los.
+- A fonte canônica das receitas é a branch padrão remota de `flaviosoriano/github-workflows`. Confirme o remoto e compare o commit do clone local com a branch remota antes de usá-lo. Confira também se os arquivos de receita têm mudanças locais. Se o clone estiver desatualizado ou as receitas alteradas, use uma cópia atual de leitura sem sobrescrever mudanças locais. Se não puder verificar o remoto, informe a limitação e peça a fonte ao usuário. Confirme que `templates/research/AGENTS.md`, `templates/research/pull_request_template.md` e `rulesets/main.json` existem antes de usá-los.
 - Use o diretório ou repositório indicado pelo usuário. Se ele não indicar um destino e o diretório atual não for claramente o novo projeto, pergunte onde inicializar. Nunca use o próprio `github-workflows` como destino.
 - Inspecione o destino, o estado do Git, o remoto, o `AGENTS.md`, o modelo de PR e o `.gitignore` existentes. Preserve conteúdo e mudanças locais. Se o destino ainda não for um repositório Git, inicialize a branch `main`; se já for, preserve sua branch padrão.
 
@@ -23,7 +23,7 @@ Use esta skill somente quando o usuário a invocar. Ela prepara um projeto com o
 
 - Criar remoto, fazer commit ou push exige pedido explícito. Antes de criar um repositório GitHub, confirme conta, nome e visibilidade; para este fluxo pessoal, sugira privado. Não altere um remoto existente por suposição.
 - Se o usuário pedir a proteção da branch, leia `docs/adoption.md` e confira regras existentes antes de importar `rulesets/main.json`. Aplique o ruleset somente ao repositório identificado, sem bypass e sem duplicar regras conflitantes. Verifique a configuração após a importação; se não conseguir aplicá-la, entregue o caminho manual e marque a etapa como pendente.
-- Se o usuário pedir o Pullfrog, leia `docs/pullfrog-review.md` e oriente a instalação do Pullfrog GitHub App limitada ao repositório, a criação de `.github/workflows/pullfrog.yml` pelo console e a configuração da chave do provedor. A revisão automática fica desligada; as revisões são pedidas por menção a `@pullfrog`. Se a conta tiver revisão automática do Copilot ou do Codex ativada, oriente desativá-la no projeto. Não declare o Pullfrog ativo sem confirmação observável, como o workflow presente no repositório e o app instalado.
+- Se o usuário pedir o Pullfrog, leia `docs/pullfrog-review.md` e oriente a instalação do Pullfrog GitHub App limitada ao repositório, a criação de `.github/workflows/pullfrog.yml` pelo console e a configuração da chave do provedor. A primeira revisão é pedida por menção a `@pullfrog`; após pushes, confira se a revisão incremental começa antes de pedir outra. Se a conta tiver revisão automática do Copilot ou do Codex ativada, oriente desativá-la no projeto. Não declare o Pullfrog ativo sem confirmação observável, como o workflow presente no repositório e o app instalado.
 
 ## Skills de engenharia
 

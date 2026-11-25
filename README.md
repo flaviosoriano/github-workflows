@@ -7,6 +7,7 @@ Receitas para proteger a branch principal e organizar a revisão em projetos pes
 - [`rulesets/main.json`](rulesets/main.json): PR obrigatório na branch padrão, zero aprovações exigidas, conversas resolvidas, merge commit como único método, sem force push e sem exclusão.
 - [`templates/research/`](templates/research/): modelos de `AGENTS.md` e de descrição de PR.
 - [`docs/pullfrog-review.md`](docs/pullfrog-review.md): ativação e rotina de revisão do Pullfrog.
+- [`skills/initialize`](skills/initialize/SKILL.md) e [`skills/implement-issue`](skills/implement-issue/SKILL.md): inicialização de projetos e implementação de issues.
 
 O ruleset não é aplicado automaticamente por estar neste repositório. Cada projeto precisa importar o JSON nas suas configurações. Da mesma forma, o Pullfrog precisa ser instalado e configurado em cada repositório pelo [console do Pullfrog](https://docs.pullfrog.com/getting-started).
 
@@ -23,3 +24,7 @@ O perfil mantém `required_approving_review_count: 0`. `dismiss_stale_reviews_on
 Cada projeto define seus comandos de teste e lint no próprio `AGENTS.md`. Antes do merge, execute os comandos relevantes na máquina de desenvolvimento e registre resultados e limitações no PR. Este repositório não instala workflows de teste no GitHub. O único workflow do projeto é o do Pullfrog, criado pelo console dele.
 
 O repositório é uma biblioteca de receitas. Criar um projeto a partir dele como template copiaria também arquivos que o projeto não precisa; por isso a adoção usa apenas os arquivos necessários.
+
+## Instalações de skills
+
+A branch padrão deste repositório é a fonte canônica das skills próprias. Depois de atualizar o clone, copie o diretório completo de cada skill desejada de `skills/` para o diretório de skills do agente, preservando scripts e permissões. Se houver instalações em mais de um diretório de descoberta, sincronize cada cópia usada; confira diferenças locais antes de sobrescrevê-las. Reinicie a sessão do agente quando necessário para carregar a versão atualizada. A instalação de uma skill não atualiza automaticamente as demais cópias nem os projetos já inicializados.
