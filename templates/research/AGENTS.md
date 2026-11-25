@@ -9,6 +9,7 @@ Preencha antes de usar este modelo:
 - Objetivo: `<pergunta de pesquisa e documento da proposta>`
 - Dados e origem: `<descreva>`
 - Unidade de separação entre treino e avaliação: `<paciente, usuário, documento, período etc.>`
+- Sobreposição entre treino e avaliação: `<entidades ou dados compartilhados, implicações e como reportar; ou nenhuma conhecida>`
 - Divisão canônica dos dados: `<arquivo ou procedimento>`
 - Métrica primária única: `<nome, definição e como é reportada, por exemplo por dataset>`
 - Comandos de teste e lint: `<comandos>`
@@ -17,7 +18,9 @@ Preencha antes de usar este modelo:
 ## Trabalho com o usuário
 
 - Responda de forma curta e direta. Relate problemas percebidos fora da tarefa, mas só abra issues ou documentos se o usuário pedir.
+- Dê nomes descritivos a variantes, braços e decisões; ao citar um rótulo opaco existente, inclua também seu significado.
 - Peça confirmação antes de remover uma funcionalidade cuja intenção não esteja clara.
+- Quando a issue, a spec ou o protocolo deixar em aberto uma escolha entre alternativas razoáveis que mudam o comportamento ou o resultado, explique os efeitos, recomende uma opção e peça a decisão antes de implementar, inclusive durante `/implement-issue`. Use a ferramenta interativa de perguntas quando disponível; caso contrário, pergunte na conversa.
 
 ## Código e testes locais
 
@@ -29,6 +32,8 @@ Preencha antes de usar este modelo:
 
 ## Experimentos e evidência
 
+- Ao propor experimento, método, métrica, perda ou análise novos, busque trabalhos relacionados em fontes primárias e confira as citações nos registros originais. Registre autores, ano, título, fonte, link e relação com o projeto no local de literatura definido pelo projeto; se nada relevante for encontrado, registre a busca. Cite as referências na issue, no PR e na documentação pertinentes.
+- Registre decisões e resultados com data nas notas de pesquisa definidas pelo projeto, distinguindo as linhas e vinculando decisões compartilhadas.
 - Trate smoke tests, depuração e runs exploratórios como provisórios. Não crie hashes, snapshots ou mecanismos de congelamento da configuração para eles.
 - Quando um resultado sustentar uma conclusão no PR ou em uma publicação, registre a configuração efetiva em formato legível, o estado do código, dados e divisão, sementes, comando, resultados e limitações. Registre versões e hardware quando afetarem o resultado.
 - Se um run exploratório passar a ser usado como evidência, repita-o com esse registro. Use hashes somente quando precisar verificar a integridade de um artefato externo mutável ou quando o protocolo do projeto exigir.
