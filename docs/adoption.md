@@ -12,7 +12,7 @@ Importe [`rulesets/main.json`](../rulesets/main.json) em **Settings → Rules �
 
 ## 3. Ativar o Pullfrog
 
-Siga o [guia de revisão](pullfrog-review.md) para instalar o Pullfrog, criar o workflow e configurar a chave do provedor. As revisões são pedidas por menção a `@pullfrog` nos PRs importantes.
+Siga o [guia de revisão](pullfrog-review.md) para instalar o Pullfrog, criar o workflow e configurar a chave do provedor. Peça a primeira revisão por menção a `@pullfrog` nos PRs importantes e confira a revisão incremental depois dos pushes.
 
 Se a conta tiver revisão automática do Copilot ou do Codex ativada, desative-a para o projeto. Este fluxo usa apenas o Pullfrog.
 

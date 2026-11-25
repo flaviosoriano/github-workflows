@@ -69,7 +69,8 @@ Preencha antes de usar este modelo:
 
 ### Revisão com Pullfrog
 
-- O Pullfrog não revisa PRs automaticamente. Quando um PR ou um commit novo for importante, peça a revisão com um comentário no PR que mencione `@pullfrog` e diga o que conferir.
+- Quando um PR importante não receber revisão inicial automaticamente, peça-a com um comentário que mencione `@pullfrog` e diga o que conferir.
+- Depois de um push, verifique se a configuração do projeto iniciou a revisão incremental dos commits novos. Se ela não começar, peça nova revisão com `@pullfrog`; não mencione logo após o push quando a revisão incremental já estiver ativa.
 - Considere importante qualquer mudança de código que altere dados, splits, métricas, busca, treino ou avaliação, além de refatorações grandes. Mudanças exclusivamente de documentação ou triviais dispensam o pedido. `<ajuste a lista às áreas críticas do projeto>`
 - Espere a revisão terminar e leia os achados antes do merge. Resolva os problemas identificados ou apresente-os ao usuário quando uma decisão for necessária.
 - O Pullfrog faz revisão estática: não substitui os testes locais nem as execuções com dados, aos quais ele não tem acesso.
