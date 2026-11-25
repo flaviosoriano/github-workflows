@@ -64,6 +64,7 @@ Preencha antes de usar este modelo:
 ### Commits e Pull Requests
 
 - Faça commit, push ou abra PR somente com autorização; publicar não autoriza merge.
+- Invocar `/implement-issue` autoriza as operações de publicação e revisão descritas na skill para as issues indicadas; o merge exige `--merge` ou pedido explícito.
 - Descreva no PR apenas verificações realmente executadas.
 
 ### Revisão com Pullfrog
