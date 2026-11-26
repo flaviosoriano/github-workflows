@@ -12,6 +12,10 @@ metadata:
 Use this template for writing the PR body:
 
 ```markdown
+## Overview
+
+<one paragraph, high level>
+
 ## Summary
 
 <diagram, diff-sketch, or tree>
@@ -35,6 +39,10 @@ Use this template for writing the PR body:
 ## Sections
 
 Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
+
+### Overview
+
+One plain-prose paragraph, high level, in the user's language. Say what the PR adds or changes, the question or problem it serves and why, how it works in broad strokes, and where it fits in the larger plan (parent spec, follow-up issues). No code, no lists, no test details. Assume the reader knows the project, not the diff.
 
 ### Summary
 
