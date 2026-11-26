@@ -103,16 +103,55 @@ Faça esta etapa quando o PR estiver pronto para merge. Com `--merge`, ela vem a
 
 Escreva a partir do diff final, não da memória da sessão: releia `git diff --stat origin/main...<head>` e o diff de cada arquivo no commit `head`, porque as rodadas de revisão podem ter mudado o que foi feito. Aprofunde o que o corpo do PR não cobre e não copie o "Summary".
 
-Ajuste o tamanho ao PR. Em mudanças só de documentação ou triviais, escreva uma ou duas linhas. Nas demais, use estas seções:
+Ajuste o tamanho ao PR. Em mudanças só de documentação ou triviais, escreva uma ou duas linhas. Nas demais, siga exatamente este modelo: os títulos, a ordem e o formato dos itens são fixos, e o conteúdo entre `<>` é o que você preenche.
 
-- **Responsabilidade de cada arquivo.** Agrupe em "novos" e "modificados". Para um arquivo novo, diga a responsabilidade dele e o que faz: entradas, saídas, validações e as funções ou estruturas principais. Para um arquivo existente, diga o que foi adicionado, alterado ou removido e o que ficou igual. Inclua os artefatos gerados fora do Git (dados, saídas, smoke tests): onde estão e por que foram preservados.
-- **Como os arquivos se conectam.** Um diagrama em texto curto com as dependências entre os arquivos do PR (quem chama quem e em que direção) e a ligação com o restante do projeto: o que é importado de outros módulos e o que é ligação só por dados (arquivos de entrada e saída). Diga de onde vêm as entradas (etapas ou scripts anteriores), quem vai consumir as saídas e o que as próximas issues da mesma spec devem estender.
-- **Escolhas que a issue deixou em aberto.** Cada decisão tomada sem instrução explícita, com o motivo e o efeito de escolher diferente.
-- **Fora do escopo ou não verificado.** O que ficou para outras issues e o que não foi testado ou medido, com o motivo.
+````markdown
+## Explicação das mudanças (head `<sha curto>`)
 
-Escreva para quem conhece o projeto mas não leu o diff, sem colar código, no idioma do usuário. Publique o texto como comentário no PR, sem mencionar `@pullfrog`, para não disparar outra revisão. No terminal, mostre um resumo curto com o link do comentário.
+### Responsabilidade de cada arquivo
 
-Pronto quando: o comentário está publicado e o link aparece no relatório.
+**Novos**
+
+- `<caminho>`: <responsabilidade em uma frase>. <O que faz: entradas, saídas, validações, funções ou estruturas principais.>
+
+**Modificados**
+
+- `<caminho>`: <o que foi adicionado, alterado ou removido>. <O que ficou igual.>
+
+**Fora do Git**
+
+- `<caminho>`: <o que é, por que foi preservado e para onde vai antes de remover o worktree>.
+
+### Como os arquivos se conectam
+
+```text
+<diagrama: entradas → arquivos do PR → saídas, com a direção das chamadas>
+```
+
+- **Entradas:** <de onde vêm; ligação por código (import) ou só por dados (arquivo)>.
+- **Quem consome:** <issues e specs seguintes que leem as saídas>.
+- **O que estender:** <onde as próximas issues da mesma spec devem mexer>.
+
+### Escolhas que a issue deixou em aberto
+
+1. **<escolha>:** <o que foi decidido, por quê e o efeito de escolher diferente>.
+
+### Fora do escopo ou não verificado
+
+- **<item>:** <o que ficou de fora ou não foi testado ou medido, e por quê>.
+````
+
+Regras do modelo:
+
+- Escreva `Nenhum.` no lugar dos itens de uma seção ou grupo vazio. Não remova títulos.
+- Um item por arquivo. Para um arquivo com várias mudanças, use subitens.
+- Escreva para quem conhece o projeto mas não leu o diff, sem colar código, no idioma do usuário.
+
+**Conferir antes de publicar.** Compare o texto com `git diff --name-status origin/main...<head>`. Todo arquivo adicionado aparece em "Novos", todo arquivo modificado em "Modificados" e todo arquivo removido em "Modificados", marcado como removido. As quatro seções `###` existem na ordem do modelo. Se faltar algo, complete antes de publicar.
+
+Publique o texto como comentário no PR, sem mencionar `@pullfrog`, para não disparar outra revisão. No terminal, mostre um resumo curto com o link do comentário.
+
+Pronto quando: a conferência passou, o comentário está publicado e o link aparece no relatório.
 
 ### 8. Fechamento
 
