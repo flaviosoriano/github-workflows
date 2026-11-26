@@ -97,11 +97,28 @@ Resolver threads: `gh api graphql -f query='mutation($id:ID!){resolveReviewThrea
 - `mergeable` é `MERGEABLE`;
 - a suíte local passou no commit `head`.
 
-### 7. Fechamento
+### 7. Explicação das mudanças
 
-- Sem `--merge`: informe "PR #N pronto para merge" e siga para a próxima issue.
+Faça esta etapa quando o PR estiver pronto para merge. Com `--merge`, ela vem antes do merge e não o bloqueia.
+
+Escreva a partir do diff final, não da memória da sessão: releia `git diff --stat origin/main...<head>` e o diff de cada arquivo no commit `head`, porque as rodadas de revisão podem ter mudado o que foi feito. Aprofunde o que o corpo do PR não cobre e não copie o "Summary".
+
+Ajuste o tamanho ao PR. Em mudanças só de documentação ou triviais, escreva uma ou duas linhas. Nas demais, use estas seções:
+
+- **Responsabilidade de cada arquivo.** Agrupe em "novos" e "modificados". Para um arquivo novo, diga a responsabilidade dele e o que faz: entradas, saídas, validações e as funções ou estruturas principais. Para um arquivo existente, diga o que foi adicionado, alterado ou removido e o que ficou igual. Inclua os artefatos gerados fora do Git (dados, saídas, smoke tests): onde estão e por que foram preservados.
+- **Como os arquivos se conectam.** Um diagrama em texto curto com as dependências entre os arquivos do PR (quem chama quem e em que direção) e a ligação com o restante do projeto: o que é importado de outros módulos e o que é ligação só por dados (arquivos de entrada e saída). Diga de onde vêm as entradas (etapas ou scripts anteriores), quem vai consumir as saídas e o que as próximas issues da mesma spec devem estender.
+- **Escolhas que a issue deixou em aberto.** Cada decisão tomada sem instrução explícita, com o motivo e o efeito de escolher diferente.
+- **Fora do escopo ou não verificado.** O que ficou para outras issues e o que não foi testado ou medido, com o motivo.
+
+Escreva para quem conhece o projeto mas não leu o diff, sem colar código, no idioma do usuário. Publique o texto como comentário no PR, sem mencionar `@pullfrog`, para não disparar outra revisão. No terminal, mostre um resumo curto com o link do comentário.
+
+Pronto quando: o comentário está publicado e o link aparece no relatório.
+
+### 8. Fechamento
+
+- Sem `--merge`: informe "PR #N pronto para merge" com o link da explicação e siga para a próxima issue.
 - Com `--merge`: `gh pr merge <pr> --merge`, `git pull --ff-only` no checkout da `main`, e remova o worktree e a branch seguindo as regras de remoção segura do `AGENTS.md`.
 
 ## Relatório final
 
-Uma tabela com uma linha por issue: issue, PR, rodadas de babysit, estado (pronto, mesclado, parado), e o que ficou com o usuário (decisões pendentes, sugestões fora do escopo, comandos de execuções longas).
+Uma tabela com uma linha por issue: issue, PR, rodadas de babysit, estado (pronto, mesclado, parado), link do comentário de explicação, e o que ficou com o usuário (decisões pendentes, escolhas que a issue deixou em aberto, sugestões fora do escopo, comandos de execuções longas).
