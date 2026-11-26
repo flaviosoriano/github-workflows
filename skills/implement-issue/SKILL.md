@@ -52,7 +52,7 @@ Pronto quando: a suíte e o lint passam no worktree.
 
 ### 5. Publicação
 
-Commits atômicos com `git add <caminhos>`, push e `gh pr create --base main` com `Closes #<n>` no corpo. Escreva o corpo com `/pr` e liste nele apenas as verificações executadas no passo 4.
+Commits atômicos com `git add <caminhos>`, push e `gh pr create --base main` com `Closes #<n>` no corpo. Escreva o corpo com `/pr`, que inclui a responsabilidade de cada arquivo, as conexões e as escolhas que a issue deixou em aberto, e liste nele apenas as verificações executadas no passo 4.
 
 Se a mudança é **importante** pelos critérios do `AGENTS.md`, anote `SINCE=$(date -u +%Y-%m-%dT%H:%M:%SZ)` e, caso não haja revisão inicial automática, comente `@pullfrog` no PR com 3 ou 4 pontos concretos a conferir (o que pode estar numericamente errado, que contrato pode quebrar, se os testes pegariam o erro). Se não é importante, o babysit dispensa a revisão do Pullfrog.
 
@@ -97,67 +97,19 @@ Resolver threads: `gh api graphql -f query='mutation($id:ID!){resolveReviewThrea
 - `mergeable` é `MERGEABLE`;
 - a suíte local passou no commit `head`.
 
-### 7. Explicação das mudanças
+### 7. Corpo final do PR
 
-Faça esta etapa quando o PR estiver pronto para merge. Com `--merge`, ela vem antes do merge e não o bloqueia.
+Faça esta etapa quando o PR estiver pronto para merge. Com `--merge`, ela vem antes do merge.
 
-Escreva a partir do diff final, não da memória da sessão: releia `git diff --stat origin/main...<head>` e o diff de cada arquivo no commit `head`, porque as rodadas de revisão podem ter mudado o que foi feito. Aprofunde o que o corpo do PR não cobre e não copie o "Summary".
+As rodadas de revisão podem ter mudado o que foi feito desde o passo 5. Reescreva o corpo do PR com `/pr` a partir do diff do commit `head`, mantendo `Closes #<n>` e listando só as verificações executadas nesse commit. Rode a conferência da `/pr` contra `git diff --name-status origin/main...<head>` e atualize com `gh pr edit <pr> --body-file`. Editar o corpo não muda o `head`, então o PR continua pronto. Não mencione `@pullfrog` no corpo, para não pedir outra revisão.
 
-Ajuste o tamanho ao PR. Em mudanças só de documentação ou triviais, escreva uma ou duas linhas. Nas demais, siga exatamente este modelo: os títulos, a ordem e o formato dos itens são fixos, e o conteúdo entre `<>` é o que você preenche.
-
-````markdown
-## Explicação das mudanças (head `<sha curto>`)
-
-### Responsabilidade de cada arquivo
-
-**Novos**
-
-- `<caminho>`: <responsabilidade em uma frase>. <O que faz: entradas, saídas, validações, funções ou estruturas principais.>
-
-**Modificados**
-
-- `<caminho>`: <o que foi adicionado, alterado ou removido>. <O que ficou igual.>
-
-**Fora do Git**
-
-- `<caminho>`: <o que é, por que foi preservado e para onde vai antes de remover o worktree>.
-
-### Como os arquivos se conectam
-
-```text
-<diagrama: entradas → arquivos do PR → saídas, com a direção das chamadas>
-```
-
-- **Entradas:** <de onde vêm; ligação por código (import) ou só por dados (arquivo)>.
-- **Quem consome:** <issues e specs seguintes que leem as saídas>.
-- **O que estender:** <onde as próximas issues da mesma spec devem mexer>.
-
-### Escolhas que a issue deixou em aberto
-
-1. **<escolha>:** <o que foi decidido, por quê e o efeito de escolher diferente>.
-
-### Fora do escopo ou não verificado
-
-- **<item>:** <o que ficou de fora ou não foi testado ou medido, e por quê>.
-````
-
-Regras do modelo:
-
-- Escreva `Nenhum.` no lugar dos itens de uma seção ou grupo vazio. Não remova títulos.
-- Um item por arquivo. Para um arquivo com várias mudanças, use subitens.
-- Escreva para quem conhece o projeto mas não leu o diff, sem colar código, no idioma do usuário.
-
-**Conferir antes de publicar.** Compare o texto com `git diff --name-status origin/main...<head>`. Todo arquivo adicionado aparece em "Novos", todo arquivo modificado em "Modificados" e todo arquivo removido em "Modificados", marcado como removido. As quatro seções `###` existem na ordem do modelo. Se faltar algo, complete antes de publicar.
-
-Publique o texto como comentário no PR, sem mencionar `@pullfrog`, para não disparar outra revisão. No terminal, mostre um resumo curto com o link do comentário.
-
-Pronto quando: a conferência passou, o comentário está publicado e o link aparece no relatório.
+Pronto quando: a conferência passou e o corpo do PR corresponde ao `head`.
 
 ### 8. Fechamento
 
-- Sem `--merge`: informe "PR #N pronto para merge" com o link da explicação e siga para a próxima issue.
+- Sem `--merge`: informe "PR #N pronto para merge" e siga para a próxima issue.
 - Com `--merge`: `gh pr merge <pr> --merge`, `git pull --ff-only` no checkout da `main`, e remova o worktree e a branch seguindo as regras de remoção segura do `AGENTS.md`.
 
 ## Relatório final
 
-Uma tabela com uma linha por issue: issue, PR, rodadas de babysit, estado (pronto, mesclado, parado), link do comentário de explicação, e o que ficou com o usuário (decisões pendentes, escolhas que a issue deixou em aberto, sugestões fora do escopo, comandos de execuções longas).
+Uma tabela com uma linha por issue: issue, PR, rodadas de babysit, estado (pronto, mesclado, parado), e o que ficou com o usuário (decisões pendentes, escolhas que a issue deixou em aberto, sugestões fora do escopo, comandos de execuções longas).
